@@ -1,5 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <ActionBar [title]="title"></ActionBar>
 <StackLayout  class="p-20">
-    <Label text="Welcome to {{ title }}!" class="h1 text-center" textWrap="true"></Label>
+    <Label text="{{ title }}" class="h1 text-center" textWrap="true"></Label>
+    <Label text="{{ tagline }}" class="h5 text-center" textWrap="true"></Label>
+    <Button class="btn btn-primary btn-active" id="button" text="Add a goal!" (tap)="onTap($event)"></Button>
+    <app-list></app-list>
 </StackLayout>
