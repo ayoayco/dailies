@@ -59,10 +59,11 @@ export class ListService {
     if (item.count > 1) {
       item.count--;
     } else {
-      item.count--;
       item.status = Math.abs(item.status - 1);
       if (item.status === Status.UNDONE) {
         item.count = item.initCount;
+      } else {
+        item.count--;
       }
     }
 
