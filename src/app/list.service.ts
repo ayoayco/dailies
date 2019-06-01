@@ -6,7 +6,31 @@ export enum Status {
 }
 
 export class Goal {
-  constructor(public text: string, public status = Status.UNDONE) { }
+  readonly verb: string;
+  readonly initCount: number;
+  readonly noun: string;
+  count: number;
+
+  constructor(public text: string, public status = Status.UNDONE) {
+    const strArr = text.split(' ');
+    const wordsArr: Array<Array<string>> = [];
+    let num: number;
+    let count = 0;
+    wordsArr.push([]);
+    strArr.forEach(str => {
+      if (isNaN(Number(str))) {
+        wordsArr[count].push(str);
+      } else {
+        wordsArr.push([]);
+        count++;
+        num = JSON.parse(str);
+      }
+    });
+
+    this.verb = wordsArr[0].join(' ');
+    this.initCount = this.count = num;
+    this.noun = wordsArr[1].join(' ');
+  }
 }
 
 const goals = [
@@ -32,7 +56,19 @@ export class ListService {
 
   toggleStatus(index: number) {
     const item = this.items[index];
-    item.status = Math.abs(item.status - 1);
+    if (item.count > 1) {
+      item.count--;
+    } else {
+      item.count--;
+      item.status = Math.abs(item.status - 1);
+      if (item.status === Status.UNDONE) {
+        item.count = item.initCount;
+      }
+    }
+
+    item.text = `${item.verb} ${item.count} ${item.noun}`;
+
+    console.log(item);
   }
 
   setToDone(index: number) {

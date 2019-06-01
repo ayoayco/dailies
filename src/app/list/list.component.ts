@@ -17,11 +17,11 @@ export class ListComponent implements OnInit {
     ngOnInit() {
       this.listService.initialize();
       this.items = this.listService.getList();
+      console.log(this.items);
     }
 
     decorateText(index: number) {
       const item = this.listService.getItem(index);
-      console.log(`decorate: ${item.text} ${item.status}`);
 
       return item.status === Status.DONE ? 'line-through' : '';
     }
@@ -29,6 +29,5 @@ export class ListComponent implements OnInit {
     onItemTap(args) {
       const i = args.index;
       this.listService.toggleStatus(i);
-      console.log('Item Tapped at cell index: ' + i);
     }
 }

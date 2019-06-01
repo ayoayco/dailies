@@ -15,10 +15,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private listService: ListService) { }
 
-  count: number;
-
   ngOnInit() {
-    this.count = 0;
   }
 
   onTap(args: EventData) {
