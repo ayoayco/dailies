@@ -60,7 +60,7 @@ export class ListService {
     const item = this.items[index];
 
     if (item.isTime) {
-      // start or pause timer; open dialog
+      // todo: start or pause timer; open dialog
     } else if (item.count > 1) {
       item.count--;
     } else {
