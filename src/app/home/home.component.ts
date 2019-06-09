@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventData } from 'tns-core-modules/data/observable';
-import { Button } from 'tns-core-modules/ui/button';
 import { ListService } from '../list.service';
-import { prompt, PromptResult, PromptOptions, inputType, capitalizationType } from 'tns-core-modules/ui/dialogs';
+import { DialogService } from '../dialog.service';
+import { PromptResult } from 'tns-core-modules/ui/dialogs/dialogs';
 
 @Component({
   selector: 'app-home',
@@ -13,41 +13,17 @@ export class HomeComponent implements OnInit {
   title = 'Dailies';
   tagline = 'Build habits. Claim rewards.';
 
-  constructor(private listService: ListService) { }
+  constructor(private listService: ListService, private dialogService: DialogService) { }
 
   ngOnInit() {
   }
 
   onTap(args: EventData) {
-    this.displayPromptDialog();
+    this.dialogService.displayPromptDialog().then((result: PromptResult) => {
+      if (result.result && result.text) {
+        this.listService.addItem(result.text);
+      }
+    });
   }
-
-  displayPromptDialog() {
-        // >> prompt-dialog-code
-        /*
-        import {
-            prompt,
-            PromptResult,
-            PromptOptions,
-            inputType,
-            capitalizationType
-        } from 'tns-core-modules/ui/dialogs';
-        */
-        const options: PromptOptions = {
-            title: 'Add a goal',
-            okButtonText: 'OK',
-            cancelButtonText: 'Cancel',
-            cancelable: true,
-            inputType: inputType.text, // email, number, text, password, or email
-            capitalizationType: capitalizationType.sentences // all. none, sentences or words
-        };
-
-        prompt(options).then((result: PromptResult) => {
-          if (result.result && result.text) {
-            this.listService.addItem(result.text);
-          }
-        });
-        // << prompt-dialog-code
-    }
 
 }

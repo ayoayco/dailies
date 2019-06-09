@@ -5,10 +5,13 @@ export enum Status {
   UNDONE
 }
 
+const timeUnits: Array<string> = ['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years', 'centuries', 'millenia'];
+
 export class Goal {
   readonly verb: string;
   readonly initCount: number;
   readonly noun: string;
+  readonly isTime: boolean = false;
   count: number;
 
   constructor(public text: string, public status = Status.UNDONE) {
@@ -30,14 +33,11 @@ export class Goal {
     this.verb = wordsArr[0].join(' ');
     this.initCount = this.count = num;
     this.noun = wordsArr[1].join(' ');
+    this.isTime = !!timeUnits.find(unit => unit === this.noun);
   }
 }
 
-const goals = [
-  'Read 3 articles',
-  'Drink 8 glasses of water',
-  'Listen to 1 audiobook chapter'
-];
+const goals = [];
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +56,10 @@ export class ListService {
 
   toggleStatus(index: number) {
     const item = this.items[index];
-    if (item.count > 1) {
+
+    if (item.isTime) {
+      // start or pause timer
+    } else if (item.count > 1) {
       item.count--;
     } else {
       item.status = Math.abs(item.status - 1);
@@ -67,7 +70,9 @@ export class ListService {
       }
     }
 
-    item.text = `${item.verb} ${item.count} ${item.noun}`;
+    const countStr = item.count ? `${item.count} ` : '';
+
+    item.text = `${item.verb} ${countStr}${item.noun}`;
 
     console.log(item);
   }
