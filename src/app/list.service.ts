@@ -33,6 +33,8 @@ export class Goal {
     this.verb = wordsArr[0].join(' ');
     this.initCount = this.count = num;
     this.noun = wordsArr[1].join(' ');
+
+    // todo: handle cases when there are other words in the noun string
     this.isTime = !!timeUnits.find(unit => unit === this.noun);
   }
 }
@@ -58,7 +60,7 @@ export class ListService {
     const item = this.items[index];
 
     if (item.isTime) {
-      // start or pause timer
+      // start or pause timer; open dialog
     } else if (item.count > 1) {
       item.count--;
     } else {
