@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onTap(args: EventData) {
+  addTask(args: EventData) {
     this.dialogService.displayPromptDialog().then((result: PromptResult) => {
       if (result.result && result.text) {
         this.listService.addItem(result.text);
