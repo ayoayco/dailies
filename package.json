@@ -55,7 +55,7 @@
     "karma-coverage-istanbul-reporter": "^2.0.6",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "lodash": ">=4.17.13",
+    "lodash": ">=4.17.19",
     "nativescript-dev-typescript": "~0.8.0",
     "nativescript-dev-webpack": "^1.0.3",
     "protractor": "^6.0.0",
